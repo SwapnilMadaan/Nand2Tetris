@@ -1,0 +1,21 @@
+ This file is part of www.nand2tetris.org.
+// File name: projects/03/a/Bit.hdl
+
+/**
+ * 1-bit register:
+ * If load[t] == 1 then out[t+1] = in[t]
+ *                 else out does not change (out[t+1] = out[t])
+ */
+
+// In clocked chips we can use multiple `out` and those multiple `out`
+// Think of intermediate variables as initialized with a 0 value
+
+CHIP Bit {
+    IN in, load;
+    OUT out;
+
+    PARTS:
+    Mux (a=prevResult, b=in, sel=load, out=r1);
+    DFF (in=r1, out=prevResult);
+    DFF (in=r1, out=out);
+}
